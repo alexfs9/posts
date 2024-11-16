@@ -1,6 +1,8 @@
 package com.app.posts.services;
 
-import com.app.posts.entities.Post;
+import com.app.posts.entities.PostEntity;
+import com.app.posts.entities.UserEntity;
+import com.app.posts.exceptions.post.PostNotFoundException;
 import com.app.posts.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,25 +16,31 @@ import java.util.Optional;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserService userService;
 
-    public Post save(Post post) {
+    public PostEntity save(UserEntity user, String text) {
+        PostEntity post = new PostEntity();
+        post.setText(text);
         post.setPostedAt(LocalDateTime.now());
         post.setUpdatedAt(null);
+        post.setUser(user);
         return this.postRepository.save(post);
     }
 
-    public List<Post> findAll() {
+    public List<PostEntity> findAll() {
         return this.postRepository.findAll();
     }
 
-    public Optional<Post> findById(long id) {
-        return this.postRepository.findById(id);
+    public PostEntity findById(long postId) {
+        Optional<PostEntity> post = this.postRepository.findById(postId);
+        if (post.isEmpty()) throw new PostNotFoundException("Post not found");
+        return post.get();
     }
 
-    public Post update(Post oldPost, Post newPost) {
-        newPost.setPostedAt(oldPost.getPostedAt());
-        newPost.setUpdatedAt(LocalDateTime.now());
-        return this.postRepository.save(newPost);
+    public PostEntity update(PostEntity post, String text) {
+        post.setText(text);
+        post.setUpdatedAt(LocalDateTime.now());
+        return this.postRepository.save(post);
     }
 
     public void deleteById(long id) {
