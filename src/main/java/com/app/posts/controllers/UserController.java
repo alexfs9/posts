@@ -1,7 +1,7 @@
 package com.app.posts.controllers;
 
-import com.app.posts.entity.UserEntity;
-import com.app.posts.service.UserService;
+import com.app.posts.entities.UserEntity;
+import com.app.posts.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

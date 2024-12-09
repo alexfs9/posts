@@ -1,4 +1,4 @@
-package com.app.posts.exception.user;
+package com.app.posts.exceptions.user;
 
 public class UserNotFoundException extends RuntimeException {
 

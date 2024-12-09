@@ -1,9 +1,9 @@
-package com.app.posts.service;
+package com.app.posts.services;
 
-import com.app.posts.entity.PostEntity;
-import com.app.posts.entity.UserEntity;
-import com.app.posts.exception.post.PostNotFoundException;
-import com.app.posts.repository.PostRepository;
+import com.app.posts.entities.PostEntity;
+import com.app.posts.entities.UserEntity;
+import com.app.posts.exceptions.post.PostNotFoundException;
+import com.app.posts.repositories.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

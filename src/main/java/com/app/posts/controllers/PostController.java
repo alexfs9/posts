@@ -1,11 +1,11 @@
 package com.app.posts.controllers;
 
-import com.app.posts.entity.PostEntity;
-import com.app.posts.entity.UserEntity;
-import com.app.posts.record.requests.post.NewPostRequest;
-import com.app.posts.record.requests.post.UpdatePostRequest;
-import com.app.posts.service.PostService;
-import com.app.posts.service.UserService;
+import com.app.posts.entities.PostEntity;
+import com.app.posts.entities.UserEntity;
+import com.app.posts.records.requests.post.NewPostRequest;
+import com.app.posts.records.requests.post.UpdatePostRequest;
+import com.app.posts.services.PostService;
+import com.app.posts.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

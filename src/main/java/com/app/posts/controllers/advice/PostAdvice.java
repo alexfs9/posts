@@ -1,7 +1,7 @@
 package com.app.posts.controllers.advice;
 
-import com.app.posts.exception.post.PostNotFoundException;
-import com.app.posts.record.responses.ErrorResponse;
+import com.app.posts.exceptions.post.PostNotFoundException;
+import com.app.posts.records.responses.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
