@@ -12,7 +12,7 @@
 	<artifactId>posts</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>posts</name>
-	<description>API REST that allows create, read, update and delete posts from a database.</description>
+	<description>API REST that allows to create, read, update and delete posts from a database.</description>
 	<url/>
 	<licenses>
 		<license/>

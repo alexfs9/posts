@@ -1,4 +1,4 @@
-package com.app.posts.records.requests.post;
+package com.app.posts.record.requests.post;
 
 public record NewPostRequest(
         Long userId,

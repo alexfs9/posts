@@ -1,12 +1,13 @@
 package com.app.posts.controllers;
 
-import com.app.posts.entities.PostEntity;
-import com.app.posts.entities.UserEntity;
-import com.app.posts.records.requests.post.NewPostRequest;
-import com.app.posts.records.requests.post.UpdatePostRequest;
-import com.app.posts.services.PostService;
-import com.app.posts.services.UserService;
+import com.app.posts.entity.PostEntity;
+import com.app.posts.entity.UserEntity;
+import com.app.posts.record.requests.post.NewPostRequest;
+import com.app.posts.record.requests.post.UpdatePostRequest;
+import com.app.posts.service.PostService;
+import com.app.posts.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,20 +27,20 @@ public class PostController {
     }
 
     @PostMapping
-    public PostEntity save(@RequestBody NewPostRequest newPostRequest) {
+    public ResponseEntity<PostEntity> save(@RequestBody NewPostRequest newPostRequest) {
         UserEntity user = this.userService.findById(newPostRequest.userId());
-        return this.postService.save(user, newPostRequest.text());
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.postService.save(user, newPostRequest.text()));
     }
 
     @GetMapping("/{postId}")
-    public PostEntity findById(@PathVariable Long postId) {
-        return this.postService.findById(postId);
+    public ResponseEntity<PostEntity> findById(@PathVariable Long postId) {
+        return ResponseEntity.ok(this.postService.findById(postId));
     }
 
     @PatchMapping
-    public PostEntity update(@RequestBody UpdatePostRequest updatePostRequest) {
+    public ResponseEntity<PostEntity> update(@RequestBody UpdatePostRequest updatePostRequest) {
         PostEntity post = this.postService.findById(updatePostRequest.postId());
-        return this.postService.update(post, updatePostRequest.text());
+        return ResponseEntity.ok(this.postService.update(post, updatePostRequest.text()));
     }
 
     @DeleteMapping("/{postId}")

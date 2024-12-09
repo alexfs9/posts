@@ -1,8 +1,8 @@
-package com.app.posts.services;
+package com.app.posts.service;
 
-import com.app.posts.entities.UserEntity;
-import com.app.posts.exceptions.user.UserNotFoundException;
-import com.app.posts.repositories.UserRepository;
+import com.app.posts.entity.UserEntity;
+import com.app.posts.exception.user.UserNotFoundException;
+import com.app.posts.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

@@ -1,4 +1,4 @@
-package com.app.posts.exceptions.post;
+package com.app.posts.exception.post;
 
 public class PostNotFoundException extends RuntimeException {
 
