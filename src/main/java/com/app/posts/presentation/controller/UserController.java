@@ -1,7 +1,7 @@
-package com.app.posts.controllers;
+package com.app.posts.presentation.controller;
 
-import com.app.posts.entities.UserEntity;
-import com.app.posts.services.UserService;
+import com.app.posts.persistence.entity.UserEntity;
+import com.app.posts.service.implementation.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     @PostMapping
     public ResponseEntity<UserEntity> save(@RequestBody UserEntity user) {

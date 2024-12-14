@@ -1,11 +1,11 @@
-package com.app.posts.controllers;
+package com.app.posts.presentation.controller;
 
-import com.app.posts.entities.PostEntity;
-import com.app.posts.entities.UserEntity;
-import com.app.posts.records.requests.post.NewPostRequest;
-import com.app.posts.records.requests.post.UpdatePostRequest;
-import com.app.posts.services.PostService;
-import com.app.posts.services.UserService;
+import com.app.posts.persistence.entity.PostEntity;
+import com.app.posts.persistence.entity.UserEntity;
+import com.app.posts.presentation.record.requests.post.NewPostRequest;
+import com.app.posts.presentation.record.requests.post.UpdatePostRequest;
+import com.app.posts.service.implementation.PostServiceImpl;
+import com.app.posts.service.implementation.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostService postService;
-    private final UserService userService;
+    private final PostServiceImpl postService;
+    private final UserServiceImpl userService;
 
     @GetMapping
     public List<PostEntity> findAll() {

@@ -1,4 +1,4 @@
-package com.app.posts.records.responses;
+package com.app.posts.presentation.record.responses;
 
 import java.time.LocalDateTime;
 

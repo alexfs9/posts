@@ -1,4 +1,4 @@
-package com.app.posts.entities;
+package com.app.posts.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,9 +1,10 @@
-package com.app.posts.services;
+package com.app.posts.service.implementation;
 
-import com.app.posts.entities.PostEntity;
-import com.app.posts.entities.UserEntity;
-import com.app.posts.exceptions.post.PostNotFoundException;
-import com.app.posts.repositories.PostRepository;
+import com.app.posts.persistence.entity.PostEntity;
+import com.app.posts.persistence.entity.UserEntity;
+import com.app.posts.service.exception.post.PostNotFoundException;
+import com.app.posts.persistence.repository.IPostRepository;
+import com.app.posts.service.interfaces.IPostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,12 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PostService {
+public class PostServiceImpl implements IPostService {
 
-    private final PostRepository postRepository;
-    private final UserService userService;
+    private final IPostRepository postRepository;
+    private final UserServiceImpl userService;
 
+    @Override
     public PostEntity save(UserEntity user, String text) {
         PostEntity post = new PostEntity();
         post.setText(text);
@@ -27,6 +29,7 @@ public class PostService {
         return this.postRepository.save(post);
     }
 
+    @Override
     public List<PostEntity> findAll() {
         return this.postRepository.findAll();
     }
@@ -37,13 +40,15 @@ public class PostService {
         return post.get();
     }
 
+    @Override
     public PostEntity update(PostEntity post, String text) {
         post.setText(text);
         post.setUpdatedAt(LocalDateTime.now());
         return this.postRepository.save(post);
     }
 
-    public void deleteById(long id) {
+    @Override
+    public void deleteById(Long id) {
         this.postRepository.deleteById(id);
     }
 }

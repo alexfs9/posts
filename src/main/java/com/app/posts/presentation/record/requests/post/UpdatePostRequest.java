@@ -1,4 +1,4 @@
-package com.app.posts.records.requests.post;
+package com.app.posts.presentation.record.requests.post;
 
 public record UpdatePostRequest(
         Long postId,
