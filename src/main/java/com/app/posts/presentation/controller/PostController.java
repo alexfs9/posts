@@ -2,8 +2,8 @@ package com.app.posts.presentation.controller;
 
 import com.app.posts.persistence.entity.PostEntity;
 import com.app.posts.persistence.entity.UserEntity;
-import com.app.posts.presentation.record.requests.post.NewPostRequest;
-import com.app.posts.presentation.record.requests.post.UpdatePostRequest;
+import com.app.posts.presentation.dto.requests.post.NewPostRequest;
+import com.app.posts.presentation.dto.requests.post.UpdatePostRequest;
 import com.app.posts.service.implementation.PostServiceImpl;
 import com.app.posts.service.implementation.UserServiceImpl;
 import lombok.RequiredArgsConstructor;

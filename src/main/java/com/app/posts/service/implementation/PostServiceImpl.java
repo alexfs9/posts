@@ -17,7 +17,6 @@ import java.util.Optional;
 public class PostServiceImpl implements IPostService {
 
     private final IPostRepository postRepository;
-    private final UserServiceImpl userService;
 
     @Override
     public PostEntity save(UserEntity user, String text) {
