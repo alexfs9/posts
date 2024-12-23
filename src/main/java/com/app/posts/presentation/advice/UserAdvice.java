@@ -1,7 +1,7 @@
 package com.app.posts.presentation.advice;
 
 import com.app.posts.service.exception.user.UserNotFoundException;
-import com.app.posts.presentation.dto.responses.ErrorResponse;
+import com.app.posts.presentation.dto.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
