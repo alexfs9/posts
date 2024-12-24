@@ -2,8 +2,6 @@ package com.app.posts.service.implementation;
 
 import com.app.posts.persistence.entity.RoleEntity;
 import com.app.posts.persistence.entity.UserEntity;
-import com.app.posts.persistence.repository.IRoleRepository;
-import com.app.posts.persistence.repository.IUserRepository;
 import com.app.posts.presentation.dto.request.auth.LoginRequest;
 import com.app.posts.presentation.dto.request.auth.SingUpRequest;
 import com.app.posts.presentation.dto.response.AuthResponse;
@@ -22,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,15 +27,14 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final IUserRepository userRepository;
-    private final IRoleRepository roleRepository;
+    private final UserServiceImpl userService;
+    private final RoleServiceImpl roleService;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = this.userRepository.findUserEntityByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User '" + username + "' not found"));
+        UserEntity userEntity = this.userService.findUserEntityByUsername(username);
 
         List<SimpleGrantedAuthority> authorities = this.getAuthorities(userEntity);
 
@@ -84,11 +80,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         String password = singUpRequest.password();
         List<String> roleNames = singUpRequest.roleRequest().roleNames();
 
-        Set<RoleEntity> roles = new HashSet<>(this.roleRepository.findRoleEntitiesByRoleEnumIn(roleNames));
-
-        if (roles.isEmpty()) {
-            throw new IllegalArgumentException("Given roles not found");
-        }
+        Set<RoleEntity> roles = this.roleService.findRoleEntitiesByRoleEnumIn(roleNames);
 
         UserEntity userEntity = UserEntity.builder()
                 .username(username)
@@ -101,14 +93,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 .roles(roles)
                 .build();
 
-        userEntity = this.userRepository.save(userEntity);
+        userEntity = this.userService.save(userEntity);
 
         List<SimpleGrantedAuthority> authorities = this.getAuthorities(userEntity);
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
                 userEntity.getUsername(),
                 userEntity.getPassword(),
-                authorities);
+                authorities
+        );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = this.jwtUtils.createJwt(authentication);
@@ -116,7 +109,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 userEntity.getUsername(),
                 "User registered successfully",
                 jwt,
-                true);
+                true
+        );
     }
 
     private List<SimpleGrantedAuthority> getAuthorities(UserEntity userEntity) {

@@ -7,4 +7,6 @@ public interface IUserService {
     UserEntity save(UserEntity user);
 
     UserEntity findById(Long userId);
+
+    UserEntity findUserEntityByUsername(String username);
 }

@@ -7,7 +7,6 @@ import com.app.posts.service.interfaces.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,8 +21,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserEntity findById(Long userId) {
-        Optional<UserEntity> user = this.userRepository.findById(userId);
-        if (user.isEmpty()) throw new UserNotFoundException("User not found");
-        return user.get();
+        return this.userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public UserEntity findUserEntityByUsername(String username) {
+        return this.userRepository.findUserEntityByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }
