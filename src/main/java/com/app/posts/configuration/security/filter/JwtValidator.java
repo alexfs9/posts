@@ -13,7 +13,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -40,10 +39,12 @@ public class JwtValidator extends OncePerRequestFilter {
             Collection<? extends GrantedAuthority> authorities = AuthorityUtils
                     .commaSeparatedStringToAuthorityList(authoritiesString);
 
-            SecurityContext securityContext = SecurityContextHolder.getContext();
-            Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
-            securityContext.setAuthentication(authentication);
-            SecurityContextHolder.setContext(securityContext);
+            Authentication authentication = new UsernamePasswordAuthenticationToken(
+                    username,
+                    null,
+                    authorities
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
         }
 
         filterChain.doFilter(request, response);
