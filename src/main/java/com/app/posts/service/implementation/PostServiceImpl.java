@@ -34,9 +34,8 @@ public class PostServiceImpl implements IPostService {
     }
 
     public PostEntity findById(long postId) {
-        Optional<PostEntity> post = this.postRepository.findById(postId);
-        if (post.isEmpty()) throw new PostNotFoundException("Post not found");
-        return post.get();
+        return this.postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
     }
 
     @Override
