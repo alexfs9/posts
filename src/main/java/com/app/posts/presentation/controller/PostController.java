@@ -43,7 +43,7 @@ public class PostController {
 
     @PatchMapping
     @PreAuthorize("hasAuthority('UPDATE_POST')")
-    public ResponseEntity<PostEntity> update(@RequestBody UpdatePostRequest updatePostRequest) {
+    public ResponseEntity<PostEntity> update(@RequestBody @Valid UpdatePostRequest updatePostRequest) {
         PostEntity post = this.postService.findById(updatePostRequest.postId());
         return ResponseEntity.ok(this.postService.update(post, updatePostRequest.text()));
     }
