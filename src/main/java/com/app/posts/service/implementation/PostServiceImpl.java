@@ -6,6 +6,8 @@ import com.app.posts.service.exception.post.PostNotFoundException;
 import com.app.posts.persistence.repository.IPostRepository;
 import com.app.posts.service.interfaces.IPostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -16,14 +18,19 @@ import java.util.List;
 public class PostServiceImpl implements IPostService {
 
     private final IPostRepository postRepository;
+    private final UserServiceImpl userService;
 
     @Override
-    public PostEntity save(UserEntity user, String text) {
+    public PostEntity save(String text) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        UserEntity userEntity = this.userService.findUserEntityByUsername(username);
+
         PostEntity post = new PostEntity();
         post.setText(text);
         post.setPostedAt(LocalDateTime.now());
         post.setUpdatedAt(null);
-        post.setUser(user);
+        post.setUser(userEntity);
         return this.postRepository.save(post);
     }
 

@@ -1,11 +1,11 @@
 package com.app.posts.presentation.controller;
 
 import com.app.posts.persistence.entity.PostEntity;
-import com.app.posts.persistence.entity.UserEntity;
-import com.app.posts.presentation.dto.request.post.NewPostRequest;
+import com.app.posts.presentation.dto.request.post.CreatePostRequest;
 import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
 import com.app.posts.service.implementation.PostServiceImpl;
 import com.app.posts.service.implementation.UserServiceImpl;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +31,8 @@ public class PostController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE_POST')")
-    public ResponseEntity<PostEntity> save(@RequestBody NewPostRequest newPostRequest) {
-        UserEntity user = this.userService.findById(newPostRequest.userId());
-        return ResponseEntity.status(HttpStatus.CREATED).body(this.postService.save(user, newPostRequest.text()));
+    public ResponseEntity<PostEntity> save(@RequestBody @Valid CreatePostRequest createPostRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.postService.save(createPostRequest.text()));
     }
 
     @GetMapping("/{postId}")

@@ -1,13 +1,12 @@
 package com.app.posts.service.interfaces;
 
 import com.app.posts.persistence.entity.PostEntity;
-import com.app.posts.persistence.entity.UserEntity;
 
 import java.util.List;
 
 public interface IPostService {
 
-    PostEntity save(UserEntity user, String text);
+    PostEntity save(String text);
 
     List<PostEntity> findAll();
 

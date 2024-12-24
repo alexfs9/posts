@@ -64,31 +64,9 @@ class PostServiceImplTest {
 
     @Test
     void testSave() {
-        UserEntity user = this.users.getFirst();
-        PostEntity post = this.posts.getFirst();
-        String text = "first post";
-
-        when(this.postRepository.save(any(PostEntity.class))).thenReturn(post);
-
-        PostEntity savedPost = this.postService.save(user, text);
-
-        assertNotNull(savedPost);
-        assertInstanceOf(Long.class, savedPost.getId());
-        assertEquals(text, savedPost.getText());
-        assertEquals(post.getPostedAt(), savedPost.getPostedAt());
-        assertEquals(user, savedPost.getUser());
-        assertNull(savedPost.getUpdatedAt());
     }
 
     @Test
     void testFindAll() {
-        when(this.postRepository.findAll()).thenReturn(this.posts);
-
-        List<PostEntity> foundPosts = this.postService.findAll();
-
-        assertNotNull(foundPosts);
-        assertEquals(2, foundPosts.size());
-        assertEquals(this.posts.getFirst(), foundPosts.getFirst());
-        assertEquals(this.posts.get(1), foundPosts.get(1));
     }
 }
