@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,5 +42,5 @@ public class UserDTO {
     private boolean accountNonLocked;
 
     @NotBlank(message = "Roles are required")
-    private List<RoleDTO> roles;
+    private Set<RoleDTO> roles;
 }
