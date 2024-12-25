@@ -14,5 +14,11 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     UserEntity userDTOToUserEntity(UserDTO userDTO);
 
+    @Mapping(target = "password", ignore = true)
+    @Mapping(target = "isEnabled", ignore = true)
+    @Mapping(target = "accountNonExpired", ignore = true)
+    @Mapping(target = "credentialsNonExpired", ignore = true)
+    @Mapping(target = "accountNonLocked", ignore = true)
+    @Mapping(target = "roles", ignore = true)
     UserDTO userEntityToUserDTO(UserEntity userEntity);
 }
