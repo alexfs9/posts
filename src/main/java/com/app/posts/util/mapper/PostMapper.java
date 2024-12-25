@@ -3,12 +3,11 @@ package com.app.posts.util.mapper;
 import com.app.posts.persistence.entity.PostEntity;
 import com.app.posts.presentation.dto.PostDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = UserMapper.class)
+@Mapper(componentModel = "spring")
 public interface PostMapper {
 
-    PostMapper INSTANCE = Mappers.getMapper(PostMapper.class);
-
+    @Mapping(target = "user", ignore = true)
     PostDTO toDto(PostEntity postEntity);
 }

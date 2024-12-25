@@ -24,13 +24,14 @@ public class PostServiceImpl implements IPostService {
     public PostEntity save(String text) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        UserEntity userEntity = this.userService.findUserEntityByUsername(username);
+        UserEntity userEntity = this.userService.findByUsernameToService(username);
 
-        PostEntity post = new PostEntity();
-        post.setText(text);
-        post.setPostedAt(LocalDateTime.now());
-        post.setUpdatedAt(null);
-        post.setUser(userEntity);
+        PostEntity post = PostEntity.builder()
+                .text(text)
+                .postedAt(LocalDateTime.now())
+                .updatedAt(null)
+                .user(userEntity)
+                .build();
         return this.postRepository.save(post);
     }
 

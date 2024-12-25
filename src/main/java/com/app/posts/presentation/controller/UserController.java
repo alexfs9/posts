@@ -1,6 +1,6 @@
 package com.app.posts.presentation.controller;
 
-import com.app.posts.persistence.entity.UserEntity;
+import com.app.posts.presentation.dto.UserDTO;
 import com.app.posts.service.implementation.UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +15,9 @@ public class UserController {
 
     private final UserServiceImpl userService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/{username}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<UserEntity> findById(@PathVariable Long userId) {
-        return ResponseEntity.ok(this.userService.findById(userId));
+    public ResponseEntity<UserDTO> findByUsername(@PathVariable String username) {
+        return ResponseEntity.ok(this.userService.findByUsername(username));
     }
 }
