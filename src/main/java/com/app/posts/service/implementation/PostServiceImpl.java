@@ -2,9 +2,12 @@ package com.app.posts.service.implementation;
 
 import com.app.posts.persistence.entity.PostEntity;
 import com.app.posts.persistence.entity.UserEntity;
+import com.app.posts.presentation.dto.PostDTO;
+import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
 import com.app.posts.service.exception.post.PostNotFoundException;
 import com.app.posts.persistence.repository.IPostRepository;
 import com.app.posts.service.interfaces.IPostService;
+import com.app.posts.util.mapper.PostMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,41 +22,54 @@ public class PostServiceImpl implements IPostService {
 
     private final IPostRepository postRepository;
     private final UserServiceImpl userService;
+    private final PostMapper postMapper;
 
     @Override
-    public PostEntity save(String text) {
+    public PostDTO save(String text) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
         UserEntity userEntity = this.userService.findByUsernameToService(username);
 
-        PostEntity post = PostEntity.builder()
+        PostEntity postEntity = PostEntity.builder()
                 .text(text)
                 .postedAt(LocalDateTime.now())
                 .updatedAt(null)
                 .user(userEntity)
                 .build();
-        return this.postRepository.save(post);
+        postEntity = this.postRepository.save(postEntity);
+        return this.postMapper.toDto(postEntity);
     }
 
     @Override
-    public List<PostEntity> findAll() {
-        return this.postRepository.findAll();
+    public List<PostDTO> findAll() {
+        return this.postRepository.findAll()
+                .stream()
+                .map(this.postMapper::toDto)
+                .toList();
     }
 
-    public PostEntity findById(long postId) {
-        return this.postRepository.findById(postId)
+    @Override
+    public PostDTO findById(Long postId) {
+        return this.postMapper.toDto(
+                this.postRepository.findById(postId)
+                        .orElseThrow(() -> new PostNotFoundException("Post not found"))
+        );
+    }
+
+    @Override
+    public PostDTO update(UpdatePostRequest updatePostRequest) {
+        PostEntity postEntity = this.postRepository.findById(updatePostRequest.postId())
                 .orElseThrow(() -> new PostNotFoundException("Post not found"));
+        postEntity.setText(updatePostRequest.text());
+        postEntity.setUpdatedAt(LocalDateTime.now());
+        postEntity = this.postRepository.save(postEntity);
+        return this.postMapper.toDto(postEntity);
     }
 
     @Override
-    public PostEntity update(PostEntity post, String text) {
-        post.setText(text);
-        post.setUpdatedAt(LocalDateTime.now());
-        return this.postRepository.save(post);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        this.postRepository.deleteById(id);
+    public void deleteById(Long postId) {
+        if (this.postRepository.findById(postId).isEmpty())
+            throw new PostNotFoundException("Post not found");
+        this.postRepository.deleteById(postId);
     }
 }

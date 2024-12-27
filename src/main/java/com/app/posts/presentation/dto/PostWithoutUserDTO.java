@@ -1,6 +1,5 @@
 package com.app.posts.presentation.dto;
 
-import com.app.posts.presentation.dto.response.UserResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -9,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class PostDTO {
+public class PostWithoutUserDTO {
 
     private Long id;
 
@@ -21,6 +20,4 @@ public class PostDTO {
     private LocalDateTime postedAt;
 
     private LocalDateTime updatedAt;
-
-    private UserResponse user;
 }

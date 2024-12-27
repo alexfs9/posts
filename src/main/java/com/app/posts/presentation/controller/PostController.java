@@ -1,6 +1,7 @@
 package com.app.posts.presentation.controller;
 
 import com.app.posts.persistence.entity.PostEntity;
+import com.app.posts.presentation.dto.PostDTO;
 import com.app.posts.presentation.dto.request.post.CreatePostRequest;
 import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
 import com.app.posts.service.implementation.PostServiceImpl;
@@ -25,34 +26,32 @@ public class PostController {
 
     @GetMapping
     @PreAuthorize("permitAll()")
-    public List<PostEntity> findAll() {
+    public List<PostDTO> findAll() {
         return this.postService.findAll();
     }
 
     @PostMapping
     @PreAuthorize("hasAuthority('CREATE_POST')")
-    public ResponseEntity<PostEntity> save(@RequestBody @Valid CreatePostRequest createPostRequest) {
+    public ResponseEntity<PostDTO> save(@RequestBody @Valid CreatePostRequest createPostRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.postService.save(createPostRequest.text()));
     }
 
     @GetMapping("/{postId}")
     @PreAuthorize("permitAll()")
-    public ResponseEntity<PostEntity> findById(@PathVariable Long postId) {
+    public ResponseEntity<PostDTO> findById(@PathVariable Long postId) {
         return ResponseEntity.ok(this.postService.findById(postId));
     }
 
     @PatchMapping
     @PreAuthorize("hasAuthority('UPDATE_POST')")
-    public ResponseEntity<PostEntity> update(@RequestBody @Valid UpdatePostRequest updatePostRequest) {
-        PostEntity post = this.postService.findById(updatePostRequest.postId());
-        return ResponseEntity.ok(this.postService.update(post, updatePostRequest.text()));
+    public ResponseEntity<PostDTO> update(@RequestBody @Valid UpdatePostRequest updatePostRequest) {
+        return ResponseEntity.ok(this.postService.update(updatePostRequest));
     }
 
     @DeleteMapping("/{postId}")
     @PreAuthorize("hasAuthority('DELETE_POST')")
     public ResponseEntity<Void> deleteById(@PathVariable Long postId) {
-        PostEntity post = this.postService.findById(postId);
-        this.postService.deleteById(post.getId());
+        this.postService.deleteById(postId);
         return ResponseEntity.noContent().build();
     }
 }

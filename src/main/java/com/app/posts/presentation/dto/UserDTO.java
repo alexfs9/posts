@@ -4,8 +4,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
-import java.util.List;
-
 @Data
 public class UserDTO {
 
@@ -18,6 +16,4 @@ public class UserDTO {
     @NotBlank(message = "Email is required")
     @Size(max = 200, message = "Email must be less than 200 characters")
     private String email;
-
-    private List<PostDTO> posts;
 }

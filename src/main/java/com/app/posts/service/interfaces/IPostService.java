@@ -1,16 +1,19 @@
 package com.app.posts.service.interfaces;
 
-import com.app.posts.persistence.entity.PostEntity;
+import com.app.posts.presentation.dto.PostDTO;
+import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
 
 import java.util.List;
 
 public interface IPostService {
 
-    PostEntity save(String text);
+    PostDTO save(String text);
 
-    List<PostEntity> findAll();
+    List<PostDTO> findAll();
 
-    PostEntity update(PostEntity post, String text);
+    PostDTO findById(Long postId);
+
+    PostDTO update(UpdatePostRequest updatePostRequest);
 
     void deleteById(Long id);
 }
