@@ -2,15 +2,11 @@ package com.app.posts.presentation.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.Data;
 
 import java.util.List;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
-@Getter
-@Setter
+@Data
 public class UserDTO {
 
     private Long id;
