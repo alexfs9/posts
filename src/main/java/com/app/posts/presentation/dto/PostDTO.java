@@ -1,6 +1,7 @@
 package com.app.posts.presentation.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -15,11 +16,11 @@ public class PostDTO {
     @Size(max = 255, message = "Text must be less than 255 characters")
     private String text;
 
-    @NotBlank(message = "Post creation date is required")
+    @NotNull(message = "Post creation date is required")
     private LocalDateTime postedAt;
 
     private LocalDateTime updatedAt;
 
-    @NotBlank(message = "User is required")
+    @NotNull(message = "User is required")
     private UserDTO user;
 }
