@@ -6,7 +6,6 @@ import com.app.posts.presentation.dto.PostWithoutCommentsDTO;
 import com.app.posts.presentation.dto.request.post.CreatePostRequest;
 import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
 import com.app.posts.service.implementation.PostServiceImpl;
-import com.app.posts.service.implementation.UserServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import java.util.List;
 public class PostController {
 
     private final PostServiceImpl postService;
-    private final UserServiceImpl userService;
 
     @GetMapping
     @PreAuthorize("permitAll()")
