@@ -7,7 +7,7 @@ public interface IUserService {
 
     UserEntity save(UserEntity user);
 
-    UserDTO findByUsername(String username);
+    UserEntity getUserEntity(String username);
 
-    UserEntity findByUsernameToService(String username);
+    UserDTO findByUsername(String username);
 }

@@ -31,10 +31,13 @@ public class PostsApplication {
 			PermissionEntity deletePostPermission = PermissionEntity.builder()
 					.name("DELETE_POST")
 					.build();
+			PermissionEntity makeCommentPermission = PermissionEntity.builder()
+					.name("MAKE_COMMENT")
+					.build();
 
 			RoleEntity basicUserRole = RoleEntity.builder()
 					.roleEnum(RoleEnum.BASIC_USER)
-					.permissions(Set.of(createPostPermission, updatePostPermission, deletePostPermission))
+					.permissions(Set.of(createPostPermission, updatePostPermission, deletePostPermission, makeCommentPermission))
 					.build();
 
 			roleRepository.save(basicUserRole);

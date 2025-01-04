@@ -8,10 +8,9 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Data
-public class PostDTO {
+public class PostWithoutCommentsDTO {
 
     private Long id;
 
@@ -25,6 +24,4 @@ public class PostDTO {
     private LocalDateTime updatedAt;
 
     private UserResponse user;
-
-    private List<CommentResponse> comments;
 }

@@ -9,8 +9,6 @@ import com.app.posts.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements IUserService {
@@ -24,15 +22,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserDTO findByUsername(String username) {
-        Optional<UserEntity> userEntity = this.userRepository.findByUsername(username);
-        if (userEntity.isEmpty()) throw new UserNotFoundException("User not found");
-        return this.userMapper.toDto(userEntity.get());
+    public UserEntity getUserEntity(String username) {
+        return this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
-    public UserEntity findByUsernameToService(String username) {
-        return this.userRepository.findByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("User not found"));
+    public UserDTO findByUsername(String username) {
+        return this.userMapper.toDto(this.getUserEntity(username));
     }
 }

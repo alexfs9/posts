@@ -34,7 +34,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity = this.userService.findByUsernameToService(username);
+        UserEntity userEntity = this.userService.getUserEntity(username);
 
         List<SimpleGrantedAuthority> authorities = this.getAuthorities(userEntity);
 

@@ -3,7 +3,7 @@ package com.app.posts.service.implementation;
 import com.app.posts.persistence.entity.PostEntity;
 import com.app.posts.persistence.entity.UserEntity;
 import com.app.posts.presentation.dto.PostDTO;
-import com.app.posts.presentation.dto.request.post.UpdatePostRequest;
+import com.app.posts.presentation.dto.PostWithoutCommentsDTO;
 import com.app.posts.service.exception.post.PostNotFoundException;
 import com.app.posts.persistence.repository.IPostRepository;
 import com.app.posts.service.interfaces.IPostService;
@@ -25,10 +25,10 @@ public class PostServiceImpl implements IPostService {
     private final PostMapper postMapper;
 
     @Override
-    public PostDTO save(String text) {
+    public PostWithoutCommentsDTO save(String text) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        UserEntity userEntity = this.userService.findByUsernameToService(username);
+        UserEntity userEntity = this.userService.getUserEntity(username);
 
         PostEntity postEntity = PostEntity.builder()
                 .text(text)
@@ -37,39 +37,38 @@ public class PostServiceImpl implements IPostService {
                 .user(userEntity)
                 .build();
         postEntity = this.postRepository.save(postEntity);
-        return this.postMapper.toDto(postEntity);
+        return this.postMapper.toDtoWithoutComments(postEntity);
     }
 
     @Override
-    public List<PostDTO> findAll() {
+    public List<PostWithoutCommentsDTO> findAll() {
         return this.postRepository.findAll()
                 .stream()
-                .map(this.postMapper::toDto)
+                .map(this.postMapper::toDtoWithoutComments)
                 .toList();
     }
 
     @Override
-    public PostDTO findById(Long postId) {
-        return this.postMapper.toDto(
-                this.postRepository.findById(postId)
-                        .orElseThrow(() -> new PostNotFoundException("Post not found"))
-        );
+    public PostEntity getEntity(Long postId) {
+        return this.postRepository.findById(postId)
+                .orElseThrow(() -> new PostNotFoundException("Post not found"));
     }
 
     @Override
-    public PostDTO update(UpdatePostRequest updatePostRequest) {
-        PostEntity postEntity = this.postRepository.findById(updatePostRequest.postId())
-                .orElseThrow(() -> new PostNotFoundException("Post not found"));
-        postEntity.setText(updatePostRequest.text());
+    public PostDTO findById(Long postId) {
+        return this.postMapper.toDto(this.getEntity(postId));
+    }
+
+    @Override
+    public PostWithoutCommentsDTO update(PostEntity postEntity, String text) {
+        postEntity.setText(text);
         postEntity.setUpdatedAt(LocalDateTime.now());
         postEntity = this.postRepository.save(postEntity);
-        return this.postMapper.toDto(postEntity);
+        return this.postMapper.toDtoWithoutComments(postEntity);
     }
 
     @Override
     public void deleteById(Long postId) {
-        if (this.postRepository.findById(postId).isEmpty())
-            throw new PostNotFoundException("Post not found");
-        this.postRepository.deleteById(postId);
+        this.postRepository.deleteById(this.getEntity(postId).getId());
     }
 }
