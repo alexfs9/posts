@@ -6,6 +6,6 @@ import jakarta.validation.constraints.Size;
 
 public record MakeCommentRequest(
         @NotNull Long postId,
-        @NotBlank @Size(max = 255, message = "Comments cannot have more than 255 characters") String text
+        @NotBlank @Size(max = 255, message = "Comment must be less than 255 characters") String text
 ) {
 }

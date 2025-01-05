@@ -15,7 +15,7 @@ public class PostDTO {
 
     private Long id;
 
-    @NotBlank(message = "Text is required")
+    @NotBlank(message = "Post is required")
     @Size(max = 255, message = "Post must be less than 255 characters")
     private String text;
 

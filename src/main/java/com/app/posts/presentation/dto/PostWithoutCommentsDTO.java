@@ -1,6 +1,5 @@
 package com.app.posts.presentation.dto;
 
-import com.app.posts.presentation.dto.response.CommentResponse;
 import com.app.posts.presentation.dto.response.UserResponse;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,7 +13,7 @@ public class PostWithoutCommentsDTO {
 
     private Long id;
 
-    @NotBlank(message = "Text is required")
+    @NotBlank(message = "Post is required")
     @Size(max = 255, message = "Post must be less than 255 characters")
     private String text;
 

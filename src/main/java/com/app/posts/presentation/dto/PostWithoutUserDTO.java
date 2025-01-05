@@ -12,8 +12,8 @@ public class PostWithoutUserDTO {
 
     private Long id;
 
-    @NotBlank(message = "Text is required")
-    @Size(max = 255, message = "Text must be less than 255 characters")
+    @NotBlank(message = "Post is required")
+    @Size(max = 255, message = "Post must be less than 255 characters")
     private String text;
 
     @NotNull(message = "Post creation date is required")
