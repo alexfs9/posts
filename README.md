@@ -25,7 +25,7 @@ API Rest application that allows us to manage (create, read, update, delete) pos
 - Git
 
 
-## Installation
+## Installation 🚀
 
 1. Clone the repository.
 
@@ -39,19 +39,19 @@ API Rest application that allows us to manage (create, read, update, delete) pos
     create dabatase posts;
     ```
 
-3. Modify these application properties if required.
+3. Modify these application properties if necessary.
 
     ```
     spring.datasource.url=jdbc:mysql://localhost:3306/posts
-    spring.datasource.username=root
-    spring.datasource.password=
+    spring.datasource.username=put_your_username_here
+    spring.datasource.password=put_your_password_here
     ```
 
-4. Generate your own SHA-256 private key in any website, or you can use [this](https://tools.keycdn.com/sha256-online-generator), once you have the private key put it in the first property, for the second one you can create any string value like 'AUTH-BACKEND'.
+4. Generate your own SHA-256 private key on any website, or you can use [this website](https://tools.keycdn.com/sha256-online-generator), once you have the private key put it in the first property, for the second one you can create any string value like **AUTH-BACKEND**.
 
     ```
-    jwt.private.key=
-    jwt.user.generator=AUTH-BACKEND
+    jwt.private.key=put_your_private_key_here
+    jwt.user.generator=put_your_user_generator_here
     ```
 
 5. Once all the steps above are done you can run the project and start using the API.
