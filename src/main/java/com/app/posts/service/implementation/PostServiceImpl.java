@@ -28,7 +28,7 @@ public class PostServiceImpl implements IPostService {
     public PostWithoutCommentsDTO save(String text) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        UserEntity userEntity = this.userService.getUserEntity(username);
+        UserEntity userEntity = this.userService.getEntity(username);
 
         PostEntity postEntity = PostEntity.builder()
                 .text(text)

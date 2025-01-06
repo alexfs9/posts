@@ -28,7 +28,7 @@ public class CommentServiceImpl implements ICommentService {
     public CommentDTO save(MakeCommentRequest makeCommentRequest) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PostEntity postEntity = this.postService.getEntity(makeCommentRequest.postId());
-        UserEntity userEntity = this.userService.getUserEntity(authentication.getName());
+        UserEntity userEntity = this.userService.getEntity(authentication.getName());
         CommentEntity commentEntity = CommentEntity.builder()
                 .post(postEntity)
                 .user(userEntity)

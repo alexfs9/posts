@@ -22,13 +22,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public UserEntity getUserEntity(String username) {
+    public UserEntity getEntity(String username) {
         return this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override
     public UserDTO findByUsername(String username) {
-        return this.userMapper.toDto(this.getUserEntity(username));
+        return this.userMapper.toDto(this.getEntity(username));
     }
 }
