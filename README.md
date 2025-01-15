@@ -22,7 +22,9 @@ API Rest application that allows us to manage (create, read, update, delete) pos
 - Lombok
 - Mapstruct
 - MySQL
+- Swagger
 - Git
+- Postman
 
 
 ## Installation 🚀
