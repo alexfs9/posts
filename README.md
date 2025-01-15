@@ -55,3 +55,7 @@ API Rest application that allows us to manage (create, read, update, delete) pos
     ```
 
 5. Once all the steps above are done you can run the project and start using the API.
+
+## Testing the API 🧪
+
+Once the project is running you can enter this [URL](http://localhost:8080/swagger-ui.html) to test the API.
