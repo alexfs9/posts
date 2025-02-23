@@ -10,13 +10,5 @@ public interface CommentMapper {
 
     CommentDTO toDto(CommentEntity commentEntity);
 
-    default CommentResponse toResponse(CommentEntity commentEntity) {
-        if (commentEntity == null) return null;
-        return new CommentResponse(
-                UserMapper.INSTANCE.toResponse(commentEntity.getUser()),
-                commentEntity.getText(),
-                commentEntity.getCommentedAt(),
-                commentEntity.getUpdatedAt()
-        );
-    }
+    CommentResponse toResponse(CommentEntity commentEntity);
 }
