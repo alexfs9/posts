@@ -1,4 +1,4 @@
-package com.app.posts.util;
+package com.app.posts.util.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;

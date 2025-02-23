@@ -1,4 +1,4 @@
-package com.app.posts.presentation.advice;
+package com.app.posts.presentation.controller.advice;
 
 import com.app.posts.service.exception.user.UserNotFoundException;
 import com.app.posts.presentation.dto.response.ErrorResponse;

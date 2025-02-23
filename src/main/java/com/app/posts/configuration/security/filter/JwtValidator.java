@@ -1,6 +1,6 @@
 package com.app.posts.configuration.security.filter;
 
-import com.app.posts.util.JwtUtils;
+import com.app.posts.util.jwt.JwtUtils;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

@@ -2,7 +2,7 @@ package com.app.posts.configuration.security;
 
 import com.app.posts.configuration.security.filter.JwtValidator;
 import com.app.posts.service.implementation.UserDetailsServiceImpl;
-import com.app.posts.util.JwtUtils;
+import com.app.posts.util.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

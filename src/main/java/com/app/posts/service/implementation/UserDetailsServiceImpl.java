@@ -5,7 +5,7 @@ import com.app.posts.persistence.entity.UserEntity;
 import com.app.posts.presentation.dto.request.auth.LoginRequest;
 import com.app.posts.presentation.dto.request.auth.SingUpRequest;
 import com.app.posts.presentation.dto.response.AuthResponse;
-import com.app.posts.util.JwtUtils;
+import com.app.posts.util.jwt.JwtUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
